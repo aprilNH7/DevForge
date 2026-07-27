@@ -14,9 +14,11 @@
 
 No sign-ups. No tracking. No API keys. Everything runs in your browser.
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-aprilnh7.github.io/DevForge-06b6d4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://aprilnh7.github.io/DevForge/)
+
 ---
 
-[Features](#features) · [Tools](#tools) · [Getting Started](#getting-started) · [Tech Stack](#tech-stack) · [Contributing](#contributing)
+[Live Demo](https://aprilnh7.github.io/DevForge/) · [Features](#features) · [Tools](#tools) · [Getting Started](#getting-started) · [Tech Stack](#tech-stack) · [Contributing](#contributing)
 
 </div>
 
