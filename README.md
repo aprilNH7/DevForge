@@ -10,7 +10,7 @@
 [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
 
-**12 essential developer tools in one beautiful, fast, offline-capable dashboard.**
+**18 essential developer tools in one beautiful, fast, offline-capable dashboard.**
 
 No sign-ups. No tracking. No API keys. Everything runs in your browser.
 
@@ -28,11 +28,12 @@ No sign-ups. No tracking. No API keys. Everything runs in your browser.
 
 - **Zero Dependencies** — All tools use native Web APIs (Crypto, Fetch, FileReader)
 - **Fully Offline** — Works without internet (except API Tester)
-- **Dark Theme** — Easy on the eyes, built for developers
+- **Dark / Light Mode** — Toggle between themes with preference persistence
 - **Mobile Responsive** — Use on any device
 - **Instant Results** — Real-time processing, no loading screens
 - **Copy to Clipboard** — One-click copy on every output
 - **Privacy First** — Nothing leaves your browser
+- **18 Tools** — Encoding, formatting, testing, generating, converting
 
 ---
 
@@ -52,6 +53,12 @@ No sign-ups. No tracking. No API keys. Everything runs in your browser.
 | **Timestamp Converter** | Convert between Unix timestamps, ISO 8601, and human-readable dates |
 | **Diff Checker** | Compare two texts side-by-side with LCS-based diff highlighting |
 | **Lorem Ipsum** | Generate placeholder text — paragraphs, sentences, or words |
+| **URL Codec** | Encode, decode, and parse URLs and query parameters |
+| **Password Generator** | Generate cryptographically secure passwords with strength analysis |
+| **Cron Parser** | Parse cron expressions, preview next scheduled runs, with presets |
+| **Base Converter** | Convert between binary, octal, decimal, and hexadecimal with bit analysis |
+| **SQL Formatter** | Format, beautify, and minify SQL queries with keyword highlighting |
+| **HTML Entities** | Encode/decode HTML entities with a clickable reference table |
 
 ---
 
@@ -97,7 +104,7 @@ npm run preview
 | **TypeScript 5.8** | Type safety |
 | **Tailwind CSS 4** | Utility-first styling |
 | **Vite 6** | Build tool & dev server |
-| **Web Crypto API** | SHA hashing |
+| **Web Crypto API** | SHA hashing & password generation |
 | **Fetch API** | HTTP requests |
 
 ---
@@ -119,7 +126,13 @@ devforge/
 │   │   ├── MarkdownPreview.tsx    # Live Markdown renderer
 │   │   ├── TimestampConverter.tsx  # Unix/ISO date converter
 │   │   ├── DiffChecker.tsx        # Text diff comparison
-│   │   └── LoremGenerator.tsx     # Placeholder text generator
+│   │   ├── LoremGenerator.tsx     # Placeholder text generator
+│   │   ├── UrlCodec.tsx           # URL encode/decode/parse
+│   │   ├── PasswordGenerator.tsx  # Secure password generator
+│   │   ├── CronParser.tsx         # Cron expression parser
+│   │   ├── NumberBaseConverter.tsx # Binary/octal/decimal/hex
+│   │   ├── SqlFormatter.tsx       # SQL beautifier/minifier
+│   │   └── HtmlEntityCodec.tsx    # HTML entity encode/decode
 │   ├── App.tsx                    # Main app with sidebar nav
 │   ├── main.tsx                   # Entry point
 │   └── index.css                  # Tailwind + custom styles
