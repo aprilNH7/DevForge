@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Dark mode (default) */
   --color-bg-primary: #09090b;
   --color-bg-card: #18181b;
   --color-bg-input: #0f0f12;
@@ -20,6 +19,53 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
 }
 
+/* ── Keyframes ── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--color-accent-glow); }
+  50% { box-shadow: 0 0 20px var(--color-accent-glow), 0 0 40px rgba(6,182,212,0.06); }
+}
+
+@keyframes indicator-enter {
+  from { height: 0; opacity: 0; }
+  to { height: 60%; opacity: 1; }
+}
+
+@keyframes sidebar-item {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 @layer base {
   * {
     box-sizing: border-box;
@@ -35,10 +81,10 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
 
-  /* Light mode overrides */
+  /* ── Light theme ── */
   html.light {
     --color-bg-primary: #f8fafc;
     --color-bg-card: #ffffff;
@@ -54,42 +100,67 @@
     --color-text-muted: #94a3b8;
   }
 
-  /* Custom scrollbar - dark */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  /* ── Midnight theme ── */
+  html.midnight {
+    --color-bg-primary: #0a0e1a;
+    --color-bg-card: #111827;
+    --color-bg-input: #0d1220;
+    --color-bg-sidebar: #080c16;
+    --color-bg-hover: #1e293b;
+    --color-accent: #818cf8;
+    --color-accent-dim: #6366f1;
+    --color-accent-glow: rgba(129, 140, 248, 0.12);
+    --color-border: #1e293b;
+    --color-text-primary: #e2e8f0;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #475569;
+    --color-success: #34d399;
+    --color-error: #f87171;
+    --color-warning: #fbbf24;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
     background: var(--color-bg-hover);
     border-radius: 3px;
+    transition: background 0.2s;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-text-muted);
-  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
 
-  /* Selection */
   ::selection {
     background: rgba(6, 182, 212, 0.3);
     color: #fff;
   }
+  html.midnight ::selection {
+    background: rgba(129, 140, 248, 0.3);
+  }
 }
 
 @layer components {
+
+  /* ── Cards ── */
   .card {
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: 12px;
     padding: 1.5rem;
-    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
-
+  .card:hover {
+    border-color: color-mix(in srgb, var(--color-border) 60%, var(--color-accent) 40%);
+  }
   html.light .card {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  html.light .card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
+  }
+  html.midnight .card:hover {
+    box-shadow: 0 0 20px rgba(129, 140, 248, 0.05);
   }
 
+  /* ── Inputs ── */
   .input-field {
     width: 100%;
     background-color: var(--color-bg-input);
@@ -99,7 +170,7 @@
     color: var(--color-text-primary);
     font-size: 0.875rem;
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.35s ease;
   }
   .input-field:focus {
     border-color: var(--color-accent);
@@ -107,8 +178,13 @@
   }
   .input-field::placeholder {
     color: var(--color-text-muted);
+    transition: color 0.2s;
+  }
+  .input-field:focus::placeholder {
+    color: transparent;
   }
 
+  /* ── Buttons ── */
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -122,20 +198,32 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+    transition: opacity 0.2s, transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
     box-shadow: 0 0 16px var(--color-accent-glow);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.3s;
   }
   .btn-primary:hover {
-    opacity: 0.9;
-    box-shadow: 0 0 24px rgba(6, 182, 212, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px var(--color-accent-glow), 0 0 30px rgba(6, 182, 212, 0.15);
+  }
+  .btn-primary:hover::before {
+    opacity: 1;
+    animation: shimmer 1.5s infinite;
   }
   .btn-primary:active {
-    transform: scale(0.97);
+    transform: translateY(0) scale(0.97);
   }
-
-  html.light .btn-primary {
-    color: #fff;
-  }
+  html.light .btn-primary { color: #fff; }
 
   .btn-secondary {
     display: inline-flex;
@@ -150,13 +238,18 @@
     border: 1px solid var(--color-border);
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
+    transition: all 0.2s ease;
   }
   .btn-secondary:hover {
     background-color: var(--color-bg-hover);
     border-color: var(--color-text-muted);
+    transform: translateY(-1px);
+  }
+  .btn-secondary:active {
+    transform: translateY(0) scale(0.97);
   }
 
+  /* ── Code blocks ── */
   .code-block {
     font-family: var(--font-mono);
     font-size: 0.8125rem;
@@ -169,7 +262,7 @@
     white-space: pre-wrap;
     word-break: break-all;
     color: var(--color-text-primary);
-    transition: background-color 0.3s, border-color 0.3s;
+    transition: background-color 0.35s ease, border-color 0.35s ease;
   }
 
   .textarea-code {
@@ -188,6 +281,7 @@
     letter-spacing: 0.05em;
     color: var(--color-text-secondary);
     margin-bottom: 0.375rem;
+    transition: color 0.35s ease;
   }
 
   .badge {
@@ -199,16 +293,23 @@
     border-radius: 9999px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    transition: background-color 0.2s, color 0.2s;
   }
 
+  /* ── Tool header ── */
   .tool-header {
     margin-bottom: 1.5rem;
+    animation: slideDown 0.35s ease-out;
   }
   .tool-header h2 {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text-primary);
     margin: 0 0 0.25rem 0;
+    background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   .tool-header p {
     font-size: 0.875rem;
@@ -216,7 +317,7 @@
     margin: 0;
   }
 
-  /* Theme toggle switch */
+  /* ── Theme toggle ── */
   .theme-toggle {
     position: relative;
     width: 52px;
@@ -225,7 +326,7 @@
     border: 1px solid var(--color-border);
     border-radius: 14px;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    transition: background-color 0.35s ease, border-color 0.35s ease;
     flex-shrink: 0;
   }
   .theme-toggle::after {
@@ -237,7 +338,7 @@
     height: 20px;
     background: var(--color-accent);
     border-radius: 50%;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.35s ease;
     box-shadow: 0 0 8px var(--color-accent-glow);
   }
   html.light .theme-toggle::after {
@@ -245,8 +346,13 @@
     background: #f59e0b;
     box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
   }
+  html.midnight .theme-toggle::after {
+    transform: translateX(12px);
+    background: #818cf8;
+    box-shadow: 0 0 8px rgba(129, 140, 248, 0.3);
+  }
 
-  /* Sidebar glow line */
+  /* ── Sidebar indicator ── */
   .sidebar-active-indicator {
     position: absolute;
     left: 0;
@@ -257,6 +363,69 @@
     background: var(--color-accent);
     border-radius: 0 3px 3px 0;
     box-shadow: 0 0 8px var(--color-accent-glow);
+    animation: indicator-enter 0.25s ease-out;
+  }
+
+  /* ── Sidebar item stagger ── */
+  .sidebar-item {
+    animation: sidebar-item 0.3s ease-out both;
+  }
+
+  /* ── Tool content transition ── */
+  .tool-content-enter {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  /* ── Active dot pulse ── */
+  .active-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  /* ── Logo glow ── */
+  .logo-glow {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  /* ── Search input ── */
+  .search-input {
+    width: 100%;
+    background-color: var(--color-bg-input);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.4rem 0.6rem 0.4rem 2rem;
+    color: var(--color-text-primary);
+    font-size: 0.75rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.35s ease, width 0.3s ease;
+  }
+  .search-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent-glow);
+  }
+  .search-input::placeholder {
+    color: var(--color-text-muted);
+    transition: color 0.2s;
+  }
+  .search-input:focus::placeholder {
+    color: transparent;
+  }
+
+  /* ── Theme label badge ── */
+  .theme-label {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-weight: 700;
+    background: var(--color-accent-glow);
+    color: var(--color-accent);
+    transition: all 0.35s ease;
+  }
+
+  /* ── Overlay fade ── */
+  .overlay-enter {
+    animation: fadeIn 0.2s ease-out;
   }
 }
 
