@@ -10,7 +10,7 @@
 [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
 
-**23 essential developer tools in one beautiful, fast, offline-capable dashboard.**
+**27 essential developer tools in one beautiful, fast, offline-capable dashboard.**
 
 No sign-ups. No tracking. No API keys. Everything runs in your browser.
 
@@ -33,7 +33,7 @@ No sign-ups. No tracking. No API keys. Everything runs in your browser.
 - **Instant Results** — Real-time processing, no loading screens
 - **Copy to Clipboard** — One-click copy on every output
 - **Privacy First** — Nothing leaves your browser
-- **23 Tools** — Encoding, formatting, testing, generating, converting, parsing
+- **27 Tools** — Encoding, formatting, testing, generating, converting, parsing, analyzing
 
 ---
 
@@ -64,6 +64,10 @@ No sign-ups. No tracking. No API keys. Everything runs in your browser.
 | **CSV Parser** | Parse CSV with table view, sorting, search, column stats, and JSON export |
 | **JSON Tree Viewer** | Explore JSON with collapsible tree, flat paths, query string, and type stats |
 | **String Utilities** | 20 text transforms: case conversion, sorting, slugify, escape, line ops |
+| **QR Code Generator** | Generate QR codes from text/URLs with custom colors, PNG/SVG export |
+| **MD Table Generator** | Build Markdown tables with alignment control, live preview, and import |
+| **JSON Diff** | Compare two JSON objects — see added, removed, and modified fields |
+| **Text Analyzer** | Word count, reading time, character frequency, top words, and text stats |
 
 ---
 
@@ -142,7 +146,11 @@ devforge/
 │   │   ├── XmlFormatter.tsx       # XML formatter/validator
 │   │   ├── CsvParser.tsx          # CSV parser with table view
 │   │   ├── JsonTreeViewer.tsx     # JSON tree explorer
-│   │   └── StringUtils.tsx        # 20 string operations
+│   │   ├── StringUtils.tsx        # 20 string operations
+│   │   ├── QrCodeGenerator.tsx    # QR code generator
+│   │   ├── MarkdownTableGenerator.tsx # Markdown table builder
+│   │   ├── JsonDiff.tsx           # JSON object comparator
+│   │   └── TextAnalyzer.tsx       # Text statistics analyzer
 │   ├── App.tsx                    # Main app with sidebar nav
 │   ├── main.tsx                   # Entry point
 │   └── index.css                  # Tailwind + custom styles
