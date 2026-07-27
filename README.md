@@ -10,7 +10,7 @@
 [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
 
-**8 essential developer tools in one beautiful, fast, offline-capable dashboard.**
+**12 essential developer tools in one beautiful, fast, offline-capable dashboard.**
 
 No sign-ups. No tracking. No API keys. Everything runs in your browser.
 
@@ -46,6 +46,10 @@ No sign-ups. No tracking. No API keys. Everything runs in your browser.
 | **Regex Tester** | Test patterns with real-time highlighting, capture groups, and find & replace |
 | **Color Converter** | Convert HEX/RGB/HSL with WCAG contrast checker and color harmony palettes |
 | **UUID Generator** | Generate v4 UUIDs in bulk with format options and anatomy breakdown |
+| **Markdown Preview** | Write Markdown and see rendered output in real-time with full syntax support |
+| **Timestamp Converter** | Convert between Unix timestamps, ISO 8601, and human-readable dates |
+| **Diff Checker** | Compare two texts side-by-side with LCS-based diff highlighting |
+| **Lorem Ipsum** | Generate placeholder text — paragraphs, sentences, or words |
 
 ---
 
@@ -109,7 +113,11 @@ devforge/
 │   │   ├── HashGenerator.tsx      # Hash generation (MD5-SHA512)
 │   │   ├── RegexTester.tsx        # Regex pattern tester
 │   │   ├── ColorConverter.tsx     # Color format converter
-│   │   └── UuidGenerator.tsx      # UUID v4 generator
+│   │   ├── UuidGenerator.tsx      # UUID v4 generator
+│   │   ├── MarkdownPreview.tsx    # Live Markdown renderer
+│   │   ├── TimestampConverter.tsx  # Unix/ISO date converter
+│   │   ├── DiffChecker.tsx        # Text diff comparison
+│   │   └── LoremGenerator.tsx     # Placeholder text generator
 │   ├── App.tsx                    # Main app with sidebar nav
 │   ├── main.tsx                   # Entry point
 │   └── index.css                  # Tailwind + custom styles
