@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import JsonFormatter from './tools/JsonFormatter'
 import ApiTester from './tools/ApiTester'
 import Base64Codec from './tools/Base64Codec'
@@ -140,6 +140,19 @@ const tools: ToolDef[] = [
 export default function App() {
   const [activeTool, setActiveTool] = useState<ToolId>('json')
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('devforge-theme') as 'dark' | 'light') || 'dark'
+    }
+    return 'dark'
+  })
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', theme === 'light')
+    localStorage.setItem('devforge-theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
 
   const ActiveComponent = tools.find(t => t.id === activeTool)!.component
 
@@ -159,21 +172,29 @@ export default function App() {
           fixed lg:static inset-y-0 left-0 z-40
           w-64 flex flex-col
           bg-[var(--color-bg-sidebar)] border-r border-[var(--color-border)]
-          transform transition-transform duration-200 ease-in-out
+          transform transition-all duration-200 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
-        {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-5 border-b border-[var(--color-border)]">
-          <div className="w-8 h-8 rounded-lg bg-[var(--color-accent)] flex items-center justify-center">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-            </svg>
+        {/* Logo + theme toggle */}
+        <div className="flex items-center justify-between px-5 py-5 border-b border-[var(--color-border)]">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[var(--color-accent)] flex items-center justify-center shadow-lg" style={{ boxShadow: '0 0 12px var(--color-accent-glow)' }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
+            </div>
+            <div>
+              <h1 className="text-base font-bold text-[var(--color-text-primary)] leading-tight">DevForge</h1>
+              <p className="text-[0.65rem] text-[var(--color-text-muted)] uppercase tracking-widest">Developer Toolkit</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-base font-bold text-[var(--color-text-primary)] leading-tight">DevForge</h1>
-            <p className="text-[0.65rem] text-[var(--color-text-muted)] uppercase tracking-widest">Developer Toolkit</p>
-          </div>
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          />
         </div>
 
         {/* Nav */}
@@ -187,7 +208,7 @@ export default function App() {
                   setSidebarOpen(false)
                 }}
                 className={`
-                  w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+                  relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
                   transition-all duration-150 cursor-pointer border-none
                   ${activeTool === tool.id
                     ? 'bg-[var(--color-accent-glow)] text-[var(--color-accent)]'
@@ -195,6 +216,7 @@ export default function App() {
                   }
                 `}
               >
+                {activeTool === tool.id && <span className="sidebar-active-indicator" />}
                 <span className="flex-shrink-0">{tool.icon}</span>
                 <span>{tool.label}</span>
                 {activeTool === tool.id && (
@@ -207,9 +229,12 @@ export default function App() {
 
         {/* Footer */}
         <div className="px-5 py-4 border-t border-[var(--color-border)]">
-          <p className="text-[0.65rem] text-[var(--color-text-muted)]">
-            Built with React + TypeScript
-          </p>
+          <div className="flex items-center justify-between">
+            <p className="text-[0.65rem] text-[var(--color-text-muted)]">
+              Built with React + TypeScript
+            </p>
+            <p className="text-[0.6rem] text-[var(--color-text-muted)] opacity-60">v1.2.0</p>
+          </div>
         </div>
       </aside>
 
@@ -227,9 +252,32 @@ export default function App() {
               <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           </button>
-          <span className="text-sm font-semibold text-[var(--color-text-primary)]">
+          <span className="text-sm font-semibold text-[var(--color-text-primary)] flex-1">
             {tools.find(t => t.id === activeTool)!.label}
           </span>
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 rounded-lg hover:bg-[var(--color-bg-hover)] text-[var(--color-text-secondary)] border-none cursor-pointer bg-transparent"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            )}
+          </button>
         </div>
 
         {/* Tool content */}
