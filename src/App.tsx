@@ -17,8 +17,13 @@ import CronParser from './tools/CronParser'
 import NumberBaseConverter from './tools/NumberBaseConverter'
 import SqlFormatter from './tools/SqlFormatter'
 import HtmlEntityCodec from './tools/HtmlEntityCodec'
+import YamlFormatter from './tools/YamlFormatter'
+import XmlFormatter from './tools/XmlFormatter'
+import CsvParser from './tools/CsvParser'
+import JsonTreeViewer from './tools/JsonTreeViewer'
+import StringUtils from './tools/StringUtils'
 
-type ToolId = 'json' | 'api' | 'base64' | 'jwt' | 'hash' | 'regex' | 'color' | 'uuid' | 'markdown' | 'timestamp' | 'diff' | 'lorem' | 'url' | 'password' | 'cron' | 'baseconv' | 'sql' | 'html'
+type ToolId = 'json' | 'api' | 'base64' | 'jwt' | 'hash' | 'regex' | 'color' | 'uuid' | 'markdown' | 'timestamp' | 'diff' | 'lorem' | 'url' | 'password' | 'cron' | 'baseconv' | 'sql' | 'html' | 'yaml' | 'xml' | 'csv' | 'jsontree' | 'string'
 
 interface ToolDef {
   id: ToolId
@@ -180,6 +185,53 @@ const IconHtml = () => (
   </svg>
 )
 
+const IconYaml = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <polyline points="4 4 12 12 20 4" />
+    <line x1="12" y1="12" x2="12" y2="20" />
+  </svg>
+)
+
+const IconXml = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <polyline points="7 8 3 12 7 16" />
+    <polyline points="17 8 21 12 17 16" />
+    <line x1="14" y1="4" x2="10" y2="20" />
+  </svg>
+)
+
+const IconCsv = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <line x1="3" y1="9" x2="21" y2="9" />
+    <line x1="3" y1="15" x2="21" y2="15" />
+    <line x1="9" y1="3" x2="9" y2="21" />
+    <line x1="15" y1="3" x2="15" y2="21" />
+  </svg>
+)
+
+const IconJsonTree = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <circle cx="12" cy="5" r="2" />
+    <circle cx="6" cy="13" r="2" />
+    <circle cx="18" cy="13" r="2" />
+    <circle cx="6" cy="20" r="1.5" />
+    <circle cx="18" cy="20" r="1.5" />
+    <line x1="12" y1="7" x2="6" y2="11" />
+    <line x1="12" y1="7" x2="18" y2="11" />
+    <line x1="6" y1="15" x2="6" y2="18.5" />
+    <line x1="18" y1="15" x2="18" y2="18.5" />
+  </svg>
+)
+
+const IconString = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M17 6H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z" />
+    <path d="M9 10h6" />
+    <path d="M9 14h4" />
+  </svg>
+)
+
 const tools: ToolDef[] = [
   { id: 'json', label: 'JSON Formatter', icon: <IconJson />, component: JsonFormatter },
   { id: 'api', label: 'API Tester', icon: <IconApi />, component: ApiTester },
@@ -199,6 +251,11 @@ const tools: ToolDef[] = [
   { id: 'baseconv', label: 'Base Converter', icon: <IconBaseConv />, component: NumberBaseConverter },
   { id: 'sql', label: 'SQL Formatter', icon: <IconSql />, component: SqlFormatter },
   { id: 'html', label: 'HTML Entities', icon: <IconHtml />, component: HtmlEntityCodec },
+  { id: 'yaml', label: 'YAML Formatter', icon: <IconYaml />, component: YamlFormatter },
+  { id: 'xml', label: 'XML Formatter', icon: <IconXml />, component: XmlFormatter },
+  { id: 'csv', label: 'CSV Parser', icon: <IconCsv />, component: CsvParser },
+  { id: 'jsontree', label: 'JSON Tree', icon: <IconJsonTree />, component: JsonTreeViewer },
+  { id: 'string', label: 'String Utils', icon: <IconString />, component: StringUtils },
 ]
 
 export default function App() {

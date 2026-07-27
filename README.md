@@ -10,7 +10,7 @@
 [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![License](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
 
-**18 essential developer tools in one beautiful, fast, offline-capable dashboard.**
+**23 essential developer tools in one beautiful, fast, offline-capable dashboard.**
 
 No sign-ups. No tracking. No API keys. Everything runs in your browser.
 
@@ -33,7 +33,7 @@ No sign-ups. No tracking. No API keys. Everything runs in your browser.
 - **Instant Results** — Real-time processing, no loading screens
 - **Copy to Clipboard** — One-click copy on every output
 - **Privacy First** — Nothing leaves your browser
-- **18 Tools** — Encoding, formatting, testing, generating, converting
+- **23 Tools** — Encoding, formatting, testing, generating, converting, parsing
 
 ---
 
@@ -59,6 +59,11 @@ No sign-ups. No tracking. No API keys. Everything runs in your browser.
 | **Base Converter** | Convert between binary, octal, decimal, and hexadecimal with bit analysis |
 | **SQL Formatter** | Format, beautify, and minify SQL queries with keyword highlighting |
 | **HTML Entities** | Encode/decode HTML entities with a clickable reference table |
+| **YAML Formatter** | Format YAML, convert between YAML and JSON bidirectionally |
+| **XML Formatter** | Format, minify, validate XML and convert to JSON with stats |
+| **CSV Parser** | Parse CSV with table view, sorting, search, column stats, and JSON export |
+| **JSON Tree Viewer** | Explore JSON with collapsible tree, flat paths, query string, and type stats |
+| **String Utilities** | 20 text transforms: case conversion, sorting, slugify, escape, line ops |
 
 ---
 
@@ -132,7 +137,12 @@ devforge/
 │   │   ├── CronParser.tsx         # Cron expression parser
 │   │   ├── NumberBaseConverter.tsx # Binary/octal/decimal/hex
 │   │   ├── SqlFormatter.tsx       # SQL beautifier/minifier
-│   │   └── HtmlEntityCodec.tsx    # HTML entity encode/decode
+│   │   ├── HtmlEntityCodec.tsx    # HTML entity encode/decode
+│   │   ├── YamlFormatter.tsx      # YAML formatter + JSON converter
+│   │   ├── XmlFormatter.tsx       # XML formatter/validator
+│   │   ├── CsvParser.tsx          # CSV parser with table view
+│   │   ├── JsonTreeViewer.tsx     # JSON tree explorer
+│   │   └── StringUtils.tsx        # 20 string operations
 │   ├── App.tsx                    # Main app with sidebar nav
 │   ├── main.tsx                   # Entry point
 │   └── index.css                  # Tailwind + custom styles
