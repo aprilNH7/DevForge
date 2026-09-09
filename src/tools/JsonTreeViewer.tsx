@@ -151,7 +151,7 @@ export default function JsonTreeViewer() {
     try {
       const src = input || SAMPLE
       return JSON.parse(src)
-    } catch (e) {
+    } catch {
       return null
     }
   })()
