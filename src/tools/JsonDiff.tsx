@@ -99,7 +99,7 @@ export default function JsonDiff() {
     } catch (e) {
       return { items: [], error: 'Invalid JSON: ' + String(e) }
     }
-  }, [left, right])
+  }, [left, right, SAMPLE_LEFT, SAMPLE_RIGHT])
 
   const filtered = comparison.items.filter(i => filter === 'all' || i.type === filter)
 
