@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 
 function syntaxHighlight(json: string): string {
   return json.replace(
-    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
     (match) => {
       let cls = 'text-[#f59e0b]' // number
       if (/^"/.test(match)) {
@@ -21,6 +21,20 @@ function syntaxHighlight(json: string): string {
   )
 }
 
+function getDepth(obj: unknown, d = 0): number {
+  if (typeof obj !== 'object' || obj === null) return d
+  const children = Array.isArray(obj) ? obj : Object.values(obj)
+  if (children.length === 0) return d
+  return Math.max(...children.map(c => getDepth(c, d + 1)))
+}
+
+function countKeys(obj: unknown): number {
+  if (typeof obj !== 'object' || obj === null) return 0
+  const entries = Array.isArray(obj) ? obj : Object.values(obj)
+  const own = Array.isArray(obj) ? 0 : Object.keys(obj).length
+  return own + entries.reduce((sum, v) => sum + countKeys(v), 0)
+}
+
 export default function JsonFormatter() {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
@@ -28,20 +42,6 @@ export default function JsonFormatter() {
   const [indent, setIndent] = useState(2)
   const [copied, setCopied] = useState(false)
   const [stats, setStats] = useState<{ keys: number; depth: number; size: string } | null>(null)
-
-  const getDepth = (obj: unknown, d = 0): number => {
-    if (typeof obj !== 'object' || obj === null) return d
-    const children = Array.isArray(obj) ? obj : Object.values(obj)
-    if (children.length === 0) return d
-    return Math.max(...children.map(c => getDepth(c, d + 1)))
-  }
-
-  const countKeys = (obj: unknown): number => {
-    if (typeof obj !== 'object' || obj === null) return 0
-    const entries = Array.isArray(obj) ? obj : Object.values(obj)
-    const own = Array.isArray(obj) ? 0 : Object.keys(obj).length
-    return own + entries.reduce((sum, v) => sum + countKeys(v), 0)
-  }
 
   const formatJson = useCallback(() => {
     if (!input.trim()) {
