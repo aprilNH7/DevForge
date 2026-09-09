@@ -369,6 +369,7 @@ export default function App() {
               <button
                 onClick={() => setSearch('')}
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] bg-transparent border-none cursor-pointer text-xs"
+                aria-label="Clear search"
               >
                 &times;
               </button>
@@ -425,6 +426,7 @@ export default function App() {
           <button
             onClick={() => setSidebarOpen(true)}
             className="p-1.5 rounded-lg hover:bg-[var(--color-bg-hover)] text-[var(--color-text-secondary)] border-none cursor-pointer bg-transparent transition-colors"
+            aria-label="Open sidebar"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
               <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
