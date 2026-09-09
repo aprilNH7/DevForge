@@ -345,6 +345,7 @@ export default function App() {
             onClick={cycleTheme}
             className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg border border-[var(--color-border)] bg-transparent cursor-pointer transition-all duration-200 hover:bg-[var(--color-bg-hover)] hover:border-[var(--color-text-muted)]"
             title={`Theme: ${theme} (click to cycle)`}
+            aria-label={`Cycle theme (current: ${theme})`}
           >
             <span className="text-[var(--color-accent)]">{THEME_ICONS[theme]}</span>
             <span className="theme-label">{theme}</span>
@@ -435,6 +436,7 @@ export default function App() {
           <button
             onClick={cycleTheme}
             className="flex items-center gap-1.5 px-2 py-1 rounded-lg border border-[var(--color-border)] bg-transparent cursor-pointer transition-all hover:bg-[var(--color-bg-hover)]"
+            aria-label={`Cycle theme (current: ${theme})`}
           >
             <span className="text-[var(--color-accent)]">{THEME_ICONS[theme]}</span>
             <span className="theme-label">{theme}</span>
