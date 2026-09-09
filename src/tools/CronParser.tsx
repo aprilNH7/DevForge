@@ -46,7 +46,7 @@ function parseCron(expr: string): { description: string; nextRuns: string[]; val
 
   const [min, hour, dom, month, dow] = parts
 
-  const validate = (_f: string, _lo: number, _hi: number): boolean => {
+  const validate = (_f: string): boolean => {
     if (_f === '*') return true
     const tokens = _f.split(',')
     for (const t of tokens) {
@@ -56,7 +56,7 @@ function parseCron(expr: string): { description: string; nextRuns: string[]; val
     return true
   }
 
-  if (!validate(min, 0, 59) || !validate(hour, 0, 23) || !validate(dom, 1, 31) || !validate(month, 1, 12) || !validate(dow, 0, 7)) {
+  if (!validate(min) || !validate(hour) || !validate(dom) || !validate(month) || !validate(dow)) {
     return { description: 'Invalid cron expression', nextRuns: [], valid: false, fields: parts }
   }
 
