@@ -3,6 +3,7 @@ import JsonFormatter from './tools/JsonFormatter'
 import ApiTester from './tools/ApiTester'
 import Base64Codec from './tools/Base64Codec'
 import JwtDecoder from './tools/JwtDecoder'
+import JwtGenerator from './tools/JwtGenerator'
 import HashGenerator from './tools/HashGenerator'
 import RegexTester from './tools/RegexTester'
 import ColorConverter from './tools/ColorConverter'
@@ -12,6 +13,7 @@ import TimestampConverter from './tools/TimestampConverter'
 import DiffChecker from './tools/DiffChecker'
 import LoremGenerator from './tools/LoremGenerator'
 import UrlCodec from './tools/UrlCodec'
+import UrlParser from './tools/UrlParser'
 import PasswordGenerator from './tools/PasswordGenerator'
 import CronParser from './tools/CronParser'
 import NumberBaseConverter from './tools/NumberBaseConverter'
@@ -26,8 +28,10 @@ import QrCodeGenerator from './tools/QrCodeGenerator'
 import MarkdownTableGenerator from './tools/MarkdownTableGenerator'
 import JsonDiff from './tools/JsonDiff'
 import TextAnalyzer from './tools/TextAnalyzer'
+import CssFormatter from './tools/CssFormatter'
+import IpSubnetCalculator from './tools/IpSubnetCalculator'
 
-type ToolId = 'json' | 'api' | 'base64' | 'jwt' | 'hash' | 'regex' | 'color' | 'uuid' | 'markdown' | 'timestamp' | 'diff' | 'lorem' | 'url' | 'password' | 'cron' | 'baseconv' | 'sql' | 'html' | 'yaml' | 'xml' | 'csv' | 'jsontree' | 'string' | 'qr' | 'mdtable' | 'jsondiff' | 'textanalyze'
+type ToolId = 'json' | 'api' | 'base64' | 'jwt' | 'jwtgen' | 'hash' | 'regex' | 'color' | 'uuid' | 'markdown' | 'timestamp' | 'diff' | 'lorem' | 'url' | 'urlparser' | 'password' | 'cron' | 'baseconv' | 'sql' | 'html' | 'yaml' | 'xml' | 'csv' | 'jsontree' | 'string' | 'qr' | 'mdtable' | 'jsondiff' | 'textanalyze' | 'css' | 'ipsubnet'
 
 type Theme = 'dark' | 'light' | 'midnight'
 
@@ -61,6 +65,12 @@ const IconBase64 = () => (
 const IconJwt = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+  </svg>
+)
+
+const IconJwtGen = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /><path d="M12 15l2 2-2 2" />
   </svg>
 )
 
@@ -121,6 +131,12 @@ const IconLorem = () => (
 const IconUrl = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
     <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3" /><line x1="8" y1="12" x2="16" y2="12" />
+  </svg>
+)
+
+const IconUrlParser = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <circle cx="12" cy="12" r="3" /><path d="M12 2v3" /><path d="M12 19v3" /><path d="M4.93 4.93l2.12 2.12" /><path d="M16.95 16.95l2.12 2.12" /><path d="M2 12h3" /><path d="M19 12h3" /><path d="M4.93 19.07l2.12-2.12" /><path d="M16.95 7.05l2.12-2.12" />
   </svg>
 )
 
@@ -211,6 +227,18 @@ const IconJsonDiff = () => (
   </svg>
 )
 
+const IconCss = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M4 3l1.5 18L12 22l6.5-1L20 3H4z" /><path d="M8 7h12l-1 11-5 1.5-5-1.5-.5-5" /><path d="M9 12h10" />
+  </svg>
+)
+
+const IconIpSubnet = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </svg>
+)
+
 const IconTextAnalyze = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
     <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
@@ -222,6 +250,7 @@ const tools: ToolDef[] = [
   { id: 'api', label: 'API Tester', icon: <IconApi />, component: ApiTester },
   { id: 'base64', label: 'Base64 Codec', icon: <IconBase64 />, component: Base64Codec },
   { id: 'jwt', label: 'JWT Decoder', icon: <IconJwt />, component: JwtDecoder },
+  { id: 'jwtgen', label: 'JWT Generator', icon: <IconJwtGen />, component: JwtGenerator },
   { id: 'hash', label: 'Hash Generator', icon: <IconHash />, component: HashGenerator },
   { id: 'regex', label: 'Regex Tester', icon: <IconRegex />, component: RegexTester },
   { id: 'color', label: 'Color Converter', icon: <IconColor />, component: ColorConverter },
@@ -231,6 +260,7 @@ const tools: ToolDef[] = [
   { id: 'diff', label: 'Diff Checker', icon: <IconDiff />, component: DiffChecker },
   { id: 'lorem', label: 'Lorem Ipsum', icon: <IconLorem />, component: LoremGenerator },
   { id: 'url', label: 'URL Codec', icon: <IconUrl />, component: UrlCodec },
+  { id: 'urlparser', label: 'URL Parser', icon: <IconUrlParser />, component: UrlParser },
   { id: 'password', label: 'Password Gen', icon: <IconPassword />, component: PasswordGenerator },
   { id: 'cron', label: 'Cron Parser', icon: <IconCron />, component: CronParser },
   { id: 'baseconv', label: 'Base Converter', icon: <IconBaseConv />, component: NumberBaseConverter },
@@ -245,6 +275,8 @@ const tools: ToolDef[] = [
   { id: 'mdtable', label: 'MD Table Gen', icon: <IconMdTable />, component: MarkdownTableGenerator },
   { id: 'jsondiff', label: 'JSON Diff', icon: <IconJsonDiff />, component: JsonDiff },
   { id: 'textanalyze', label: 'Text Analyzer', icon: <IconTextAnalyze />, component: TextAnalyzer },
+  { id: 'css', label: 'CSS Formatter', icon: <IconCss />, component: CssFormatter },
+  { id: 'ipsubnet', label: 'IP Subnet', icon: <IconIpSubnet />, component: IpSubnetCalculator },
 ]
 
 const THEMES: Theme[] = ['dark', 'midnight', 'light']
