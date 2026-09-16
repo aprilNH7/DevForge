@@ -30,8 +30,12 @@ import JsonDiff from './tools/JsonDiff'
 import TextAnalyzer from './tools/TextAnalyzer'
 import CssFormatter from './tools/CssFormatter'
 import IpSubnetCalculator from './tools/IpSubnetCalculator'
+import HtmlFormatter from './tools/HtmlFormatter'
+import JsFormatter from './tools/JsFormatter'
+import UnitConverter from './tools/UnitConverter'
+import HmacGenerator from './tools/HmacGenerator'
 
-type ToolId = 'json' | 'api' | 'base64' | 'jwt' | 'jwtgen' | 'hash' | 'regex' | 'color' | 'uuid' | 'markdown' | 'timestamp' | 'diff' | 'lorem' | 'url' | 'urlparser' | 'password' | 'cron' | 'baseconv' | 'sql' | 'html' | 'yaml' | 'xml' | 'csv' | 'jsontree' | 'string' | 'qr' | 'mdtable' | 'jsondiff' | 'textanalyze' | 'css' | 'ipsubnet'
+type ToolId = 'json' | 'api' | 'base64' | 'jwt' | 'jwtgen' | 'hash' | 'regex' | 'color' | 'uuid' | 'markdown' | 'timestamp' | 'diff' | 'lorem' | 'url' | 'urlparser' | 'password' | 'cron' | 'baseconv' | 'sql' | 'html' | 'yaml' | 'xml' | 'csv' | 'jsontree' | 'string' | 'qr' | 'mdtable' | 'jsondiff' | 'textanalyze' | 'css' | 'ipsubnet' | 'htmlfmt' | 'jsfmt' | 'unitconv' | 'hmac'
 
 type Theme = 'dark' | 'light' | 'midnight'
 
@@ -239,6 +243,30 @@ const IconIpSubnet = () => (
   </svg>
 )
 
+const IconHtmlFormatter = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <polyline points="7 8 3 12 7 16" /><polyline points="17 8 21 12 17 16" /><line x1="12" y1="4" x2="12" y2="20" />
+  </svg>
+)
+
+const IconJsFormatter = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M4 6h16" /><path d="M4 12h16" /><path d="M4 18h16" />
+  </svg>
+)
+
+const IconUnitConv = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M7 17l5 5 5-5" /><path d="M7 7l5-5 5 5" /><path d="M12 22V2" />
+  </svg>
+)
+
+const IconHmac = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 9.9-1" />
+  </svg>
+)
+
 const IconTextAnalyze = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
     <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
@@ -277,6 +305,10 @@ const tools: ToolDef[] = [
   { id: 'textanalyze', label: 'Text Analyzer', icon: <IconTextAnalyze />, component: TextAnalyzer },
   { id: 'css', label: 'CSS Formatter', icon: <IconCss />, component: CssFormatter },
   { id: 'ipsubnet', label: 'IP Subnet', icon: <IconIpSubnet />, component: IpSubnetCalculator },
+  { id: 'htmlfmt', label: 'HTML Formatter', icon: <IconHtmlFormatter />, component: HtmlFormatter },
+  { id: 'jsfmt', label: 'JS Formatter', icon: <IconJsFormatter />, component: JsFormatter },
+  { id: 'unitconv', label: 'Unit Converter', icon: <IconUnitConv />, component: UnitConverter },
+  { id: 'hmac', label: 'HMAC Generator', icon: <IconHmac />, component: HmacGenerator },
 ]
 
 const THEMES: Theme[] = ['dark', 'midnight', 'light']
